@@ -46,6 +46,25 @@
             </div>
         </div>
     </div>
+
+    <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="thumbnail" style="height: 336px; text-align: center;">
+            <a href="${ctx }/student/list" title="学生列表">
+                <img class="lazy" src="images/student.png"
+                     alt="学生列表" style="padding-top: 10px;">
+            </a>
+            <div class="caption">
+                <h3>
+                    <a style="text-decoration: none;" href="${ctx }/student/list" title="学生列表">
+                        学生列表
+                        <br>
+                        <small>SpringMVC基本功能实例</small>
+                    </a>
+                </h3>
+                <p>该模块的后台采用SpringMVC框架，前台页面则采用BootStrap及其相关框架的最新版本进行编写的。</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="${ctx }/js/jquery-3.1.1.min.js"></script>
