@@ -3,45 +3,28 @@ $(function () {
     //初始化列表
     initTable();
 
+    //验证表单
+    initFormValidator();
+
     //初始化时间插件
     initDatetimepicker();
 
     //提交
     $("#btn_save").on('click', function () {
-        var bootstrapValidator = $('#addForm').data('bootstrapValidator');
-        alert(bootstrapValidator.isValid());
-        return;
-        if (!bootstrapValidator.isValid()) {
-            return;
-        }
-        $.ajax({
-            async: false,
-            url: $ctx + '/student/saveStudent',
-            type: "POST",
-            data: $('#addForm').serialize(),
-            dataType: "json",
-            success: function (result) {
-                if (result.flag == '0') {
-                    parent.location.reload();
-                }
-                else {
-                    easyDialog.open({
-                        container: {
-                            header: '<div style="font-size:15px;color:#666;">错误信息</div>',
-                            content: '<div style="font-size:15px;color:#666;">' + result.message + '</div>',
-                            yesFn: false,
-                            noFn: true
-                        }
-                    });
-                }
-            }
-        });
+        saveData();
+    });
+
+    //删除信息
+    $('#btn_delete').on('click', function () {
+        deleteData();
     });
 
     $('#addOrEditModal').on('hidden.bs.modal', function () {
         $("#addForm").data('bootstrapValidator').destroy();
-        $('#addForm').data('bootstrapValidator', null);
-        formValidator();
+    });
+
+    $('#addOrEditModal').on('show.bs.modal', function () {
+        initFormValidator();
     });
 
     //查询
@@ -49,49 +32,6 @@ $(function () {
         $("#empStudentList").bootstrapTable('refresh', {url: $ctx + '/student/queryStudentByName'});
     });
 
-    //删除信息
-    $('#btn_delete').on('click', function () {
-        var empStudentList = $('#empStudentList').bootstrapTable('getSelections');
-        if (empStudentList.length == 0) {
-            easyDialog.open({
-                container: {
-                    header: '<div style="font-size:15px;color:#666;">提示信息</div>',
-                    content: '<div style="font-size:15px;color:#666;">请选择删除项！</div>',
-                    yesFn: false,
-                    noFn: true
-                }
-            });
-            return;
-        }
-        var ids = new Array();
-        $.each(empStudentList, function (index, element) {
-            ids.push(element.id);
-        });
-        $.ajax({
-            async: false,
-            url: $ctx + '/student/delStudent',
-            type: "POST",
-            data: {
-                ids: ids.toString()
-            },
-            dataType: "json",
-            success: function (result) {
-                if (result.flag == '0') {
-                    parent.location.reload();
-                }
-                else {
-                    easyDialog.open({
-                        container: {
-                            header: '<div style="font-size:15px;color:#666;">错误信息</div>',
-                            content: '<div style="font-size:15px;color:#666;">' + result.message + '</div>',
-                            yesFn: false,
-                            noFn: true
-                        }
-                    });
-                }
-            }
-        });
-    })
 });
 
 /**
@@ -111,7 +51,6 @@ function initTable() {
         toolbar: "#toolbar",// 指定工具栏
         showColumns: true, // 显示隐藏列
         showRefresh: true, // 显示刷新按钮
-        uniqueId: "sex", // 每一行的唯一标识
         sidePagination: "server", // 服务端处理分页
         columns: [{
             checkbox: true,
@@ -171,6 +110,83 @@ function initTable() {
 }
 
 /**
+ * 保存信息
+ */
+function saveData() {
+    var bootstrapValidator = $('#addForm').data('bootstrapValidator');
+    var id = $("#id").val();
+    if (!bootstrapValidator.isValid() && id == '') {
+        return;
+    }
+    $.ajax({
+        async: false,
+        url: $ctx + '/student/saveStudent',
+        type: "POST",
+        data: $('#addForm').serialize(),
+        dataType: "json",
+        success: function (result) {
+            if (result.flag == '0') {
+                parent.location.reload();
+            }
+            else {
+                easyDialog.open({
+                    container: {
+                        header: '<div style="font-size:15px;color:#666;">错误信息</div>',
+                        content: '<div style="font-size:15px;color:#666;">' + result.message + '</div>',
+                        yesFn: false,
+                        noFn: true
+                    }
+                });
+            }
+        }
+    });
+}
+/**
+ * 删除信息
+ */
+function deleteData() {
+    var empStudentList = $('#empStudentList').bootstrapTable('getSelections');
+    if (empStudentList.length == 0) {
+        easyDialog.open({
+            container: {
+                header: '<div style="font-size:15px;color:#666;">提示信息</div>',
+                content: '<div style="font-size:15px;color:#666;">请选择删除项！</div>',
+                yesFn: false,
+                noFn: true
+            }
+        });
+        return;
+    }
+    var ids = new Array();
+    $.each(empStudentList, function (index, element) {
+        ids.push(element.id);
+    });
+    $.ajax({
+        async: false,
+        url: $ctx + '/student/delStudent',
+        type: "POST",
+        data: {
+            ids: ids.toString()
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result.flag == '0') {
+                parent.location.reload();
+            }
+            else {
+                easyDialog.open({
+                    container: {
+                        header: '<div style="font-size:15px;color:#666;">错误信息</div>',
+                        content: '<div style="font-size:15px;color:#666;">' + result.message + '</div>',
+                        yesFn: false,
+                        noFn: true
+                    }
+                });
+            }
+        }
+    });
+}
+/**
  * 初始化时间插件
  */
 function initDatetimepicker() {
@@ -194,6 +210,8 @@ function queryParams(pageReqeust) {
 
 function addStudentInfo() {
     $('#addForm')[0].reset();
+    $('#id').val('');
+    $("input[name='sex']").eq(0).attr("checked",'checked');
     $('#addOrEditModal').modal('show');
 }
 /**
@@ -204,16 +222,23 @@ function editStudentInfo(index) {
     $('#id').val(empStudentList[index].id);
     $('#name').val(empStudentList[index].name);
     $('#birthday').val(empStudentList[index].birthday);
-    $('#telephone').val(empStudentList[index].telephone);
     $('#birthplace').val(empStudentList[index].birthplace);
+    $('#telephone').val(empStudentList[index].telephone);
 
+    var sex = empStudentList[index].sex;
+
+    if(sex == 1){
+        $("input[name='sex']").eq(0).attr("checked",'checked');
+    } else if(sex == 2){
+        $("input[name='sex']").eq(1).attr("checked",'checked');
+    }
     $('#addOrEditModal').modal('show');
 }
 
 /**
  * 表单验证
  */
-function formValidator() {
+function initFormValidator() {
     $('#addForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {

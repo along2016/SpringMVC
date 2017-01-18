@@ -77,7 +77,7 @@
                                 <label class="col-sm-2 control-label">性别</label>
                                 <div class="col-sm-10">
                                     <label class="checkbox-inline">
-                                        <input type="radio" name="sex" value="1" checked>男
+                                        <input type="radio" name="sex" value="1">男
                                     </label>
                                     <label class="checkbox-inline">
                                         <input type="radio" name="sex" value="2">女
@@ -135,6 +135,5 @@
         src="${ctx}/thirdparty/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="${ctx}/thirdparty/easydialog/easydialog.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/student/studentList.js"></script>
-<script type="text/javascript" src="${ctx}/js/student/student_add_update.js"></script>
 </body>
 </html>
