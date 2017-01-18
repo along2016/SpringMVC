@@ -1,16 +1,10 @@
 $(function () {
 
-    $("#birthday").datetimepicker({
-        minView: "month", //选择日期后，不会再跳转去选择时分秒
-        format: "yyyy-mm-dd", //选择日期后，文本框显示的日期格式
-        language: 'zh-CN', //汉化
-        autoclose: true //选择日期后自动关闭
-    }).on('hide', function (e) {
-        $('#addForm')
-            .data('bootstrapValidator')
-            .updateStatus('birthday', 'NOT_VALIDATED', null)
-            .validateField('birthday');
-    });
+    //初始化列表
+    initTable();
+
+    //初始化时间插件
+    initDatetimepicker();
 
     //提交
     $("#btn_save").on('click', function () {
@@ -50,7 +44,60 @@ $(function () {
         formValidator();
     });
 
-    //初始化列表
+    //查询
+    $('#btn_query').on('click', function () {
+        $("#empStudentList").bootstrapTable('refresh', {url: $ctx + '/student/queryStudentByName'});
+    });
+
+    //删除信息
+    $('#btn_delete').on('click', function () {
+        var empStudentList = $('#empStudentList').bootstrapTable('getSelections');
+        if (empStudentList.length == 0) {
+            easyDialog.open({
+                container: {
+                    header: '<div style="font-size:15px;color:#666;">提示信息</div>',
+                    content: '<div style="font-size:15px;color:#666;">请选择删除项！</div>',
+                    yesFn: false,
+                    noFn: true
+                }
+            });
+            return;
+        }
+        var ids = new Array();
+        $.each(empStudentList, function (index, element) {
+            ids.push(element.id);
+        });
+        $.ajax({
+            async: false,
+            url: $ctx + '/student/delStudent',
+            type: "POST",
+            data: {
+                ids: ids.toString()
+            },
+            dataType: "json",
+            success: function (result) {
+                if (result.flag == '0') {
+                    parent.location.reload();
+                }
+                else {
+                    easyDialog.open({
+                        container: {
+                            header: '<div style="font-size:15px;color:#666;">错误信息</div>',
+                            content: '<div style="font-size:15px;color:#666;">' + result.message + '</div>',
+                            yesFn: false,
+                            noFn: true
+                        }
+                    });
+                }
+            }
+        });
+    })
+});
+
+/**
+ * 初始化列表数据
+ */
+function initTable() {
     $("#empStudentList").bootstrapTable({
         url: $ctx + '/student/queryStudentByName',
         height: '500',
@@ -121,62 +168,23 @@ $(function () {
             };
         }
     });
-
-    //查询
-    $('#btn_query').on('click', function () {
-        $("#empStudentList").bootstrapTable('refresh', {url: $ctx + '/student/queryStudentByName'});
-    });
-
-    //删除信息
-    $('#btn_delete').on('click', function () {
-        var empStudentList = $('#empStudentList').bootstrapTable('getSelections');
-        if (empStudentList.length == 0) {
-            easyDialog.open({
-                container: {
-                    header: '<div style="font-size:15px;color:#666;">提示信息</div>',
-                    content: '<div style="font-size:15px;color:#666;">请选择删除项！</div>',
-                    yesFn: false,
-                    noFn: true
-                }
-            });
-            return;
-        }
-        var ids = new Array();
-        $.each(empStudentList, function (index, element) {
-            ids.push(element.id);
-        });
-        $.ajax({
-            async: false,
-            url: $ctx + '/student/delStudent',
-            type: "POST",
-            data: {
-                ids: ids.toString()
-            },
-            dataType: "json",
-            success: function (result) {
-                if (result.flag == '0') {
-                    parent.location.reload();
-                }
-                else {
-                    easyDialog.open({
-                        container: {
-                            header: '<div style="font-size:15px;color:#666;">错误信息</div>',
-                            content: '<div style="font-size:15px;color:#666;">' + result.message + '</div>',
-                            yesFn: false,
-                            noFn: true
-                        }
-                    });
-                }
-            }
-        });
-    })
-});
+}
 
 /**
- *
+ * 初始化时间插件
  */
-function initTable() {
-
+function initDatetimepicker() {
+    $("#birthday").datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        format: "yyyy-mm-dd", //选择日期后，文本框显示的日期格式
+        language: 'zh-CN', //汉化
+        autoclose: true //选择日期后自动关闭
+    }).on('hide', function (e) {
+        $('#addForm')
+            .data('bootstrapValidator')
+            .updateStatus('birthday', 'NOT_VALIDATED', null)
+            .validateField('birthday');
+    });
 }
 /** 查询条件 */
 function queryParams(pageReqeust) {

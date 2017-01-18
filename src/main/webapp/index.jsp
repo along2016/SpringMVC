@@ -18,6 +18,7 @@
             font-weight: 200;
             display: block;
         }
+
     </style>
 </head>
 <body>
@@ -35,13 +36,13 @@
             </a>
             <div class="caption">
                 <h3>
-                    <a href="${ctx }/student/list" title="学生列表">
+                    <a style="text-decoration: none;" href="${ctx }/student/list" title="学生列表">
                         学生列表
                         <br>
                         <small>SpringMVC基本功能实例</small>
                     </a>
                 </h3>
-                <p>该模块的后台采用SpringMVC框架，前台页面则采用BootStrap及其相关框架的最新版本进行编写的</p>
+                <p>该模块的后台采用SpringMVC框架，前台页面则采用BootStrap及其相关框架的最新版本进行编写的。</p>
             </div>
         </div>
     </div>
