@@ -49,19 +49,19 @@
 
     <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="thumbnail" style="height: 336px; text-align: center;">
-            <a href="${ctx }/student/list" title="学生列表">
-                <img class="lazy" src="images/student.png"
-                     alt="学生列表" style="padding-top: 10px;">
+            <a href="${ctx }/student/list" title="赛车">
+                <img class="lazy" src="images/racing.png"
+                     alt="赛车" style="padding-top: 10px;">
             </a>
             <div class="caption">
                 <h3>
                     <a style="text-decoration: none;" href="${ctx }/student/list" title="学生列表">
-                        学生列表
+                        赛车
                         <br>
-                        <small>SpringMVC基本功能实例</small>
+                        <small>java多线程实例</small>
                     </a>
                 </h3>
-                <p>该模块的后台采用SpringMVC框架，前台页面则采用BootStrap及其相关框架的最新版本进行编写的。</p>
+                <p>该模块主要采用java多线程方面的技术，希望通过该模块能够对java多线程能有更进一步的学习和认识。</p>
             </div>
         </div>
     </div>
