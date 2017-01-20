@@ -17,7 +17,13 @@
         <img src="images/car.gif">
     </div>
     <div class="row">
-        bb
+        <img src="images/car.gif">
+    </div>
+    <div class="row">
+        <img src="images/car.gif">
+    </div>
+    <div class="row">
+        <img src="images/car.gif">
     </div>
 </div>
 
