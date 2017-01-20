@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <div class="row">
-        aa
+        <img src="images/car.gif">
     </div>
     <div class="row">
         bb
