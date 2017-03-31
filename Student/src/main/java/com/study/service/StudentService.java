@@ -7,7 +7,7 @@ public interface StudentService {
 
 	PagedResult<Student> queryByPage(String studentName, Integer pageNo, Integer pageSize);
 
-	int saveStudent(Student student);
+	int saveStudent(Student student) throws Exception;
 
-	int deleteStudent(String ids);
+	int deleteStudent(String ids) throws Exception;
 }

@@ -28,15 +28,17 @@ public class StudentServiceImpl implements StudentService {
 		return BeanUtil.toPagedResult(studentMapperExt.selectStudentByName(name));
 	}
 
-	public int saveStudent(Student student) {
+	public int saveStudent(Student student) throws Exception{
 		if(student.getId() == null){
+			studentMapperExt.insert(student);
+			System.out.println(1/0);
 			return studentMapperExt.insert(student);
 		}
-		System.out.println(1/0);
+
 		return studentMapperExt.updateByPrimaryKey(student);
 	}
 
-	public int deleteStudent(String ids) {
+	public int deleteStudent(String ids) throws Exception{
 		StudentExample studentExample = new StudentExample();
 		StudentExample.Criteria StudentExample = studentExample.createCriteria();
 		StudentExample.andIdIn(Arrays.asList(CommonUtils.StringtoIntArr(ids)));

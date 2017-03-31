@@ -126,9 +126,9 @@ function saveData() {
         dataType: "json",
         success: function (result) {
             if (result.flag == '0') {
+                alert("121313131");
                 parent.location.reload();
-            }
-            else {
+            } else {
                 easyDialog.open({
                     container: {
                         header: '<div style="font-size:15px;color:#666;">错误信息</div>',
