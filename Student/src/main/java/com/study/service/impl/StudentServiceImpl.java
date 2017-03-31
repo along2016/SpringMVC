@@ -9,6 +9,7 @@ import com.study.util.BeanUtil;
 import com.study.util.CommonUtils;
 import com.study.util.PagedResult;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-	@Resource
+	@Autowired
 	private StudentMapperExt studentMapperExt;
 
 	public PagedResult<Student> queryByPage(String name, Integer pageNo, Integer pageSize) {
