@@ -32,6 +32,7 @@ public class StudentServiceImpl implements StudentService {
 		if(student.getId() == null){
 			return studentMapperExt.insert(student);
 		}
+		System.out.println(1/0);
 		return studentMapperExt.updateByPrimaryKey(student);
 	}
 
