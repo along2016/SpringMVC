@@ -32,6 +32,8 @@ $(function () {
         $("#empStudentList").bootstrapTable('refresh', {url: $ctx + '/student/queryStudentByName'});
     });
 
+    $("#birthplace").AMapPositionPicker();
+
 });
 
 /**
@@ -113,6 +115,8 @@ function initTable() {
  * 保存信息
  */
 function saveData() {
+    //如果按钮的类型为button（非submit），需要手动对表单进行校检
+    $('#addForm').data('bootstrapValidator').validate();
     var bootstrapValidator = $('#addForm').data('bootstrapValidator');
     var id = $("#id").val();
     if (!bootstrapValidator.isValid() && id == '') {

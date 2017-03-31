@@ -118,6 +118,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=ed1fafa0307bb4991da41f54d8a88b46"></script>
 <script type="text/javascript" src="${ctx }/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${ctx }/thirdparty/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
@@ -133,6 +134,8 @@
         src="${ctx}/thirdparty/bootstrap/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript"
         src="${ctx}/thirdparty/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript"
+        src="${ctx}/thirdparty/bootstrap/js/AMapPositionPicker.js"></script>
 <script type="text/javascript" src="${ctx}/thirdparty/easydialog/easydialog.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/student/studentList.js"></script>
 </body>
