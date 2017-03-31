@@ -30,11 +30,8 @@ public class StudentServiceImpl implements StudentService {
 
 	public int saveStudent(Student student) throws Exception{
 		if(student.getId() == null){
-			studentMapperExt.insert(student);
-			System.out.println(1/0);
 			return studentMapperExt.insert(student);
 		}
-
 		return studentMapperExt.updateByPrimaryKey(student);
 	}
 

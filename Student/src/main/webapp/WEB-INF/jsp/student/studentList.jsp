@@ -57,7 +57,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="container-fluid">
-                    <form id="addForm" class="form-horizontal">、
+                    <form id="addForm" class="form-horizontal">
                         <input id="id" name="id" type="hidden"/>
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">
@@ -109,7 +109,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                             </button>
-                            <button type="submit" id="btn_save" class="btn btn-primary">提交</button>
+                            <button type="button" id="btn_save" class="btn btn-primary">提交</button>
                         </div>
                     </form>
                 </div>

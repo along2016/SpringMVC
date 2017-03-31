@@ -126,7 +126,6 @@ function saveData() {
         dataType: "json",
         success: function (result) {
             if (result.flag == '0') {
-                alert("121313131");
                 parent.location.reload();
             } else {
                 easyDialog.open({
