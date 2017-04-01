@@ -11,10 +11,10 @@ import com.study.util.PagedResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-
-import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -26,7 +26,13 @@ public class StudentServiceImpl implements StudentService {
 		pageNo = pageNo == null ? 1 : pageNo;
 		pageSize = pageSize == null ? 10 : pageSize;
 		PageHelper.startPage(pageNo,pageSize);  //startPage是告诉拦截器说我要开始分页了。分页参数是这两个。
-		return BeanUtil.toPagedResult(studentMapperExt.selectStudentByName(name));
+		StudentExample example = new StudentExample();
+		StudentExample.Criteria criteria = example.createCriteria();
+		if(!StringUtils.isEmpty(name)){
+			criteria.andNameEqualTo(name);
+		}
+		List<Student> students = studentMapperExt.selectByExample(example);
+		return BeanUtil.toPagedResult(students);
 	}
 
 	public int saveStudent(Student student) throws Exception{
