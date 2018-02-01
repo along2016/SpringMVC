@@ -114,7 +114,11 @@
             <artifactId>spring-webmvc</artifactId>
             <version>4.3.5.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.16</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>Student</finalName>

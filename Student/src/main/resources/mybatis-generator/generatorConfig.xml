@@ -7,9 +7,9 @@
             location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.41\mysql-connector-java-5.1.41.jar"/>
     <context id="newcrmserver" targetRuntime="MyBatis3">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="${url}"
-                        userId="${username}"
-                        password="${password}">
+                        connectionURL="${db.dataSource.url}"
+                        userId="${db.dataSource.username}"
+                        password="${db.dataSource.password}">
         </jdbcConnection>
 
         <javaTypeResolver>
